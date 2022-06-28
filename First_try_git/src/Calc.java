@@ -8,7 +8,6 @@ public class Calc {
         String textResult = calc(input);
         System.out.println("Output: \n" + textResult);
     }
-
     public static String calc (String input) throws FormatException {
         String[] inputArr = input.split(" ");
         if(inputArr.length <3){
@@ -17,72 +16,68 @@ public class Calc {
         if(inputArr.length >3){
             throw new FormatException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
         }
-
-        boolean aIsRoman = false;
-        boolean bIsRoman = false;
-
         String aValue = inputArr[0];
         int a = valueTransformation(aValue);
+        char sign = inputArr[1].charAt(0);
         String bValue = inputArr[2];
         int b = valueTransformation(bValue);
+
         Roman[] romans = Roman.values();
-        if(romanCheck(aValue, romans)){
-             aIsRoman = true;
-        }
-        if(romanCheck(bValue, romans)){
-             bIsRoman = true;
-        }
+        boolean aIsRoman = romanCheck(aValue, romans);
+        boolean bIsRoman = romanCheck(bValue, romans);
+
         if((aIsRoman && !bIsRoman) || (!aIsRoman && bIsRoman)){
             throw new FormatException("используются одновременно разные системы счисления");
         }
 
-        char sign = inputArr[1].charAt(0);
         if(a<1||a>10 || b<1 || b >10){
-            throw new FormatException ("Калькулятор должен принимать на вход числа от 1 до 10 включительно");
+            throw new FormatException ("Калькулятор должен принимать на вход целые числа от 1 до 10 включительно");
         }
-        int result =  mathResult(a,b, sign);
+        int intResult =  mathResult(a,b, sign);
 
         String textResult = "";
         if(aIsRoman){
-            if(result<=0){
+            if(intResult<=0){
                 throw new FormatException("в римской системе нет отрицательных чисел");
-            }else  textResult = romanResultTranformation(result);
-            } else textResult = String.valueOf(result);
+            }else  textResult = romanResultTranformation(intResult);
+            } else textResult = String.valueOf(intResult);
         return textResult;
     }
     static int mathResult(int a, int b, char sign) throws FormatException {
-        int result=0;
+        int intResult=0;
         switch (sign){
             case ('+'):
-                result = a+b;
+                intResult = a+b;
                 break;
             case ('-'):
-                result = a-b;
+                intResult = a-b;
                 break;
             case ('*'):
-                result = a*b;
+                intResult = a*b;
                 break;
             case ('/'):
-                result = a/b;
+                intResult = a/b;
                 break;
             default:
                 throw new FormatException("Неправильный математические оператор");
             }
-        return result;
+        return intResult;
     }
 
     private static int valueTransformation(String stringValue){
         Roman[] romans = Roman.values();
         int intValue=0;
         if(romanCheck(stringValue, romans)){
-           for (int i = 0; i < Roman.values().length; i++) {
+           // isRoman = true;
+            for (int i = 0; i < Roman.values().length; i++) {
                 if (stringValue.equals(romans[i].name())){
                   intValue = romans[i].getRomanValue();
                 }
             }
         }
         if(stringValue.chars().allMatch( Character::isDigit )){
-          intValue = Integer.parseInt(stringValue);
+        //    isNumeric = true;
+            intValue = Integer.parseInt(stringValue);
         }
         return intValue;
     }
