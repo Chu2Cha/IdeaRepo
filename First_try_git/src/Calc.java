@@ -75,16 +75,14 @@ public class Calc {
         Roman[] romans = Roman.values();
         int intValue=0;
         if(romanCheck(stringValue, romans)){
-           // isRoman = true;
-            for (int i = 0; i < Roman.values().length; i++) {
+           for (int i = 0; i < Roman.values().length; i++) {
                 if (stringValue.equals(romans[i].name())){
                   intValue = romans[i].getRomanValue();
                 }
             }
         }
         if(stringValue.chars().allMatch( Character::isDigit )){
-        //    isNumeric = true;
-            intValue = Integer.parseInt(stringValue);
+          intValue = Integer.parseInt(stringValue);
         }
         return intValue;
     }
