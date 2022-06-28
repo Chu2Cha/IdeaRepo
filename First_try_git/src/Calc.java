@@ -35,16 +35,16 @@ public class Calc {
         }
         int intResult =  mathResult(a,b, sign);
 
-        String textResult = "";
+        String textResult;
         if(aIsRoman){
             if(intResult<=0){
                 throw new FormatException("в римской системе нет отрицательных чисел");
-            }else  textResult = romanResultTranformation(intResult);
+            }else  textResult = romanResultTransformation(intResult);
             } else textResult = String.valueOf(intResult);
         return textResult;
     }
     static int mathResult(int a, int b, char sign) throws FormatException {
-        int intResult=0;
+        int intResult;
         switch (sign){
             case ('+'):
                 intResult = a+b;
@@ -60,7 +60,7 @@ public class Calc {
                 break;
             default:
                 throw new FormatException("Неправильный математические оператор");
-            }
+        }
         return intResult;
     }
 
@@ -92,7 +92,7 @@ public class Calc {
         return false;
     }
 
-  //romanDigit  и romanResultTranformation  = реализация честно украдена из stackoverflow
+  //romanDigit  и romanResultTransformation  = реализация честно украдена из stackoverflow
     public static String romanDigit(int n, String one, String five, String ten){
         if(n >= 1)
         {
@@ -136,13 +136,11 @@ public class Calc {
         return "";
     }
 
-    public static String romanResultTranformation(int result){
+    public static String romanResultTransformation(int result){
         String romanOnes = romanDigit( result%10, "I", "V", "X");
         result /=10;
         String romanTens = romanDigit( result%10, "X", "L", "C");
-        result /=10;
-        String romanResult = romanTens + romanOnes;
-        return romanResult;
+        return romanTens + romanOnes;
     }
      static class FormatException extends Exception {
         public FormatException(String description){
@@ -153,7 +151,7 @@ public class Calc {
      enum Roman {
         I(1), II(2), III(3), IV(4), V(5),
         VI(6), VII(7), VIII(8), IX(9), X(10);
-        private int romanValue;
+        private final int romanValue;
 
         Roman(int romanValue){
             this.romanValue = romanValue;
