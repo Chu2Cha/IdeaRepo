@@ -18,7 +18,6 @@ public class Calc {
             throw new FormatException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
         }
 
-
         boolean aIsRoman = false;
         boolean bIsRoman = false;
 
@@ -51,7 +50,6 @@ public class Calc {
             } else textResult = String.valueOf(result);
         return textResult;
     }
-
     static int mathResult(int a, int b, char sign) throws FormatException {
         int result=0;
         switch (sign){
@@ -101,9 +99,8 @@ public class Calc {
         return false;
     }
 
-    //romanDigit  и romanResultTranformation  = реализация честно украдена из stackoverflow
+  //romanDigit  и romanResultTranformation  = реализация честно украдена из stackoverflow
     public static String romanDigit(int n, String one, String five, String ten){
-
         if(n >= 1)
         {
             if(n == 1)
@@ -142,7 +139,6 @@ public class Calc {
             {
                 return one + ten;
             }
-
         }
         return "";
     }
@@ -155,15 +151,10 @@ public class Calc {
         String romanResult = romanTens + romanOnes;
         return romanResult;
     }
-
-
      static class FormatException extends Exception {
         public FormatException(String description){
             super(description);
         }
-
-
-
     }
 
      enum Roman {
